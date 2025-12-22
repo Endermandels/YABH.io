@@ -1,12 +1,18 @@
 extends CharacterBody2D
 class_name Player
 
-
 @export_group("Internal Nodes")
 @export var input_cmp: InputComponent
 @export var movement_cmp: MovementComponent
 
+func _enter_tree() -> void:
+	# Make sure client has authority over controlling the player
+	set_multiplayer_authority(name.to_int())
+
 func _physics_process(_delta: float) -> void:
+	# Make sure only client has authority to move player
+	if not is_multiplayer_authority(): return
+
 	movement_cmp.handle_movement(self, input_cmp.input_vector)
 
 	move_and_slide()
