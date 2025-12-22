@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://chuussal8wh0x"]
+
+[ext_resource type="Script" uid="uid://dwe8c7dkibot6" path="res://scripts/lobby.gd" id="1_5gu6x"]
+[ext_resource type="PackedScene" uid="uid://dusb4mfsy6ym3" path="res://components/networking_component.tscn" id="2_q60fs"]
+
+[node name="Lobby" type="Node2D" node_paths=PackedStringArray("host_game_button", "join_game_button", "ip_address_line_edit", "networking_cmp")]
+script = ExtResource("1_5gu6x")
+host_game_button = NodePath("HostGameButton")
+join_game_button = NodePath("JoinGameButton")
+ip_address_line_edit = NodePath("IPAddressLineEdit")
+networking_cmp = NodePath("NetworkingComponent")
+
+[node name="NetworkingComponent" parent="." instance=ExtResource("2_q60fs")]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 642.0
+offset_bottom = 362.0
+color = Color(0, 0.101960786, 0.12156863, 1)
+
+[node name="Title" type="Label" parent="."]
+offset_left = 192.0
+offset_top = 56.0
+offset_right = 449.0
+offset_bottom = 154.0
+theme_override_font_sizes/font_size = 73
+text = "YABH.io"
+
+[node name="IPAddressLineEdit" type="LineEdit" parent="."]
+offset_left = 232.0
+offset_top = 240.0
+offset_right = 400.0
+offset_bottom = 265.0
+placeholder_text = "IP Address"
+
+[node name="HostGameButton" type="Button" parent="."]
+offset_left = 280.0
+offset_top = 312.0
+offset_right = 360.0
+offset_bottom = 337.0
+text = "Host Game"
+
+[node name="JoinGameButton" type="Button" parent="."]
+offset_left = 280.0
+offset_top = 280.0
+offset_right = 360.0
+offset_bottom = 305.0
+text = "Join Game"

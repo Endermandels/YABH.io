@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b18h6cqnywl3e"]
 
-[ext_resource type="Texture2D" uid="uid://b25uy25bf1fbg" path="res://assets/tile.png" id="1_rwgxs"]
+[ext_resource type="Texture2D" uid="uid://b25uy25bf1fbg" path="res://assets/images/tile.png" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://cyxvm11aexwew" path="res://scenes/player.tscn" id="2_4wyf3"]
 
 [node name="World" type="Node2D"]
