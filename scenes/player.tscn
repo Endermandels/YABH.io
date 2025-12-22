@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyxvm11aexwew"]
+
+[ext_resource type="Script" uid="uid://dwfbjxtgvcixu" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://fnjlvjkavmfq" path="res://assets/player.png" id="2_qhqgy"]
+[ext_resource type="PackedScene" path="res://components/input_component.tscn" id="3_dqkch"]
+[ext_resource type="PackedScene" path="res://components/movement_component.tscn" id="4_qlg0r"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_cmp", "movement_cmp")]
+motion_mode = 1
+script = ExtResource("1_g2els")
+input_cmp = NodePath("InputComponent")
+movement_cmp = NodePath("MovementComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_qhqgy")
+hframes = 6
+
+[node name="InputComponent" parent="." instance=ExtResource("3_dqkch")]
+
+[node name="MovementComponent" parent="." instance=ExtResource("4_qlg0r")]
+speed = 140
