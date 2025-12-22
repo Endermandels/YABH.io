@@ -3,12 +3,15 @@
 [ext_resource type="Script" uid="uid://dwe8c7dkibot6" path="res://scripts/lobby.gd" id="1_5gu6x"]
 [ext_resource type="PackedScene" uid="uid://dusb4mfsy6ym3" path="res://components/networking_component.tscn" id="2_q60fs"]
 
-[node name="Lobby" type="Node2D" node_paths=PackedStringArray("host_game_button", "join_game_button", "ip_address_line_edit", "networking_cmp")]
+[node name="Lobby" type="Node2D" node_paths=PackedStringArray("host_game_button", "join_game_button", "ip_address_line_edit", "networking_cmp", "failed_connection_label", "connecting_label")]
 script = ExtResource("1_5gu6x")
 host_game_button = NodePath("HostGameButton")
 join_game_button = NodePath("JoinGameButton")
 ip_address_line_edit = NodePath("IPAddressLineEdit")
 networking_cmp = NodePath("NetworkingComponent")
+failed_connection_label = NodePath("FailedConnection")
+connecting_label = NodePath("Connecting")
+world_scene = "res://scenes/world.tscn"
 
 [node name="NetworkingComponent" parent="." instance=ExtResource("2_q60fs")]
 
@@ -45,3 +48,20 @@ offset_top = 280.0
 offset_right = 360.0
 offset_bottom = 305.0
 text = "Join Game"
+
+[node name="FailedConnection" type="Label" parent="."]
+offset_left = 240.0
+offset_top = 344.0
+offset_right = 398.0
+offset_bottom = 361.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Unable to reach host "
+
+[node name="Connecting" type="Label" parent="."]
+visible = false
+offset_left = 272.0
+offset_top = 344.0
+offset_right = 370.0
+offset_bottom = 361.0
+text = "Connecting"

@@ -12,13 +12,13 @@ func _ready() -> void:
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
 func _on_peer_connected(id: int) -> void:
-	print("[Player ID: " + str(id) + "] Conected")
+	print("[Player ID: " + str(id) + "] Connected")
 
 func _on_peer_disconnected(id: int) -> void:
 	print("[Player ID: " + str(id) + "] Disconnected")
 
 func _on_connected_ok() -> void:
-	print("[" + self.name + "] Conected")
+	print("[" + self.name + "] Connected")
 
 func _on_connected_fail() -> void:
 	print("[" + self.name + "] Failed to connect")
