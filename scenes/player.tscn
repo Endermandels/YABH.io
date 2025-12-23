@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cyxvm11aexwew"]
+[gd_scene load_steps=11 format=3 uid="uid://cyxvm11aexwew"]
 
 [ext_resource type="Script" uid="uid://dwfbjxtgvcixu" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://fnjlvjkavmfq" path="res://assets/images/player.png" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://d2ckgi3aviv03" path="res://scenes/stats.tscn" id="2_smehm"]
 [ext_resource type="PackedScene" uid="uid://5itqmwag64ax" path="res://components/input_component.tscn" id="3_dqkch"]
 [ext_resource type="PackedScene" uid="uid://dxa78ih8w5531" path="res://components/movement_component.tscn" id="4_qlg0r"]
 [ext_resource type="PackedScene" path="res://components/animation_component.tscn" id="5_qlg0r"]
@@ -36,6 +37,8 @@ movement_cmp = NodePath("MovementComponent")
 animation_cmp = NodePath("AnimationComponent")
 gun_handler = NodePath("GunHandler")
 
+[node name="Stats" parent="." instance=ExtResource("2_smehm")]
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_qhqgy")
 hframes = 6
@@ -60,7 +63,9 @@ one_shot = true
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_dqkch")
 
-[node name="Hurtbox" parent="." instance=ExtResource("6_tuyoq")]
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("player", "stats") instance=ExtResource("6_tuyoq")]
+player = NodePath("..")
+stats = NodePath("../Stats")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape2D_fjrip")
