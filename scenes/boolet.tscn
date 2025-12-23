@@ -25,6 +25,7 @@ properties/3/spawn = true
 properties/3/replication_mode = 1
 
 [node name="Boolet" type="CharacterBody2D" node_paths=PackedStringArray("hitbox", "movement_cmp", "shoot_sfx")]
+scale = Vector2(4, 4)
 script = ExtResource("1_g2sb5")
 hitbox = NodePath("Hitbox")
 movement_cmp = NodePath("MovementComponent")

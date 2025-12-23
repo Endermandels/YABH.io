@@ -24,4 +24,5 @@ func _on_area_entered(hitbox: Area2D) -> void:
 
 	print("[" + player.name + "] hit by [" + str(hitbox.shooter_id) + "]")
 	stats.take_dmg(hitbox.dmg)
+	stats.set_last_hit_by(hitbox.shooter_id)
 	print("[" + player.name + "] has [" + str(stats.hp) + "] HP left")
