@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cyxvm11aexwew"]
+[gd_scene load_steps=10 format=3 uid="uid://cyxvm11aexwew"]
 
 [ext_resource type="Script" uid="uid://dwfbjxtgvcixu" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://fnjlvjkavmfq" path="res://assets/images/player.png" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://5itqmwag64ax" path="res://components/input_component.tscn" id="3_dqkch"]
 [ext_resource type="PackedScene" uid="uid://dxa78ih8w5531" path="res://components/movement_component.tscn" id="4_qlg0r"]
 [ext_resource type="PackedScene" path="res://components/animation_component.tscn" id="5_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://cbxju2ctkpihi" path="res://scenes/gun_handler.tscn" id="6_fjrip"]
+[ext_resource type="PackedScene" uid="uid://brlwixqt81c3d" path="res://components/hurtbox.tscn" id="6_tuyoq"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dqkch"]
 properties/0/path = NodePath(".:position")
@@ -13,25 +15,52 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath("Sprite2D:frame")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("GunHandler:can_shoot")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("GunHandler:shoot_vector")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_cmp", "movement_cmp", "animation_cmp")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fjrip"]
+radius = 4.0
+height = 14.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_cmp", "movement_cmp", "animation_cmp", "gun_handler")]
+collision_layer = 0
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_g2els")
 input_cmp = NodePath("InputComponent")
 movement_cmp = NodePath("MovementComponent")
 animation_cmp = NodePath("AnimationComponent")
+gun_handler = NodePath("GunHandler")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_qhqgy")
 hframes = 6
 frame = 1
 
-[node name="InputComponent" parent="." instance=ExtResource("3_dqkch")]
+[node name="InputComponent" parent="." node_paths=PackedStringArray("body") instance=ExtResource("3_dqkch")]
+body = NodePath("..")
 
 [node name="MovementComponent" parent="." instance=ExtResource("4_qlg0r")]
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("5_qlg0r")]
 sprite = NodePath("../Sprite2D")
 
+[node name="GunHandler" parent="." node_paths=PackedStringArray("input_cmp", "cooldown_timer") instance=ExtResource("6_fjrip")]
+input_cmp = NodePath("../InputComponent")
+cooldown_timer = NodePath("CooldownTimer")
+
+[node name="CooldownTimer" type="Timer" parent="GunHandler"]
+wait_time = 0.3
+one_shot = true
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_dqkch")
+
+[node name="Hurtbox" parent="." instance=ExtResource("6_tuyoq")]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CapsuleShape2D_fjrip")

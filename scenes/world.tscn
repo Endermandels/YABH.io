@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b18h6cqnywl3e"]
+[gd_scene load_steps=6 format=3 uid="uid://b18h6cqnywl3e"]
 
 [ext_resource type="Texture2D" uid="uid://b25uy25bf1fbg" path="res://assets/images/tile.png" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://cyxvm11aexwew" path="res://scenes/player.tscn" id="2_4wyf3"]
-[ext_resource type="Script" uid="uid://38ppe1yk043a" path="res://scripts/connection_handler.gd" id="4_71j4m"]
-[ext_resource type="Script" uid="uid://dya3se3qyvshf" path="res://scripts/multiplayer_spawner.gd" id="5_71j4m"]
+[ext_resource type="Script" uid="uid://dya3se3qyvshf" path="res://scripts/player_spawner.gd" id="5_71j4m"]
+[ext_resource type="Script" uid="uid://x8iimy2k4osw" path="res://scripts/boolet_spawner.gd" id="5_i7141"]
+[ext_resource type="PackedScene" uid="uid://bemuhe71gpel0" path="res://scenes/boolet.tscn" id="5_qfnet"]
 
 [node name="World" type="Node2D"]
 
@@ -14,14 +15,18 @@ repeat_times = 42
 [node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax"]
 texture = ExtResource("1_rwgxs")
 
-[node name="ConnectionHandler" type="Node" parent="."]
-script = ExtResource("4_71j4m")
-
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("boolet_spawner")]
 _spawnable_scenes = PackedStringArray("uid://cyxvm11aexwew")
-spawn_path = NodePath("../Players")
+spawn_path = NodePath("../Field")
 script = ExtResource("5_71j4m")
 player_scene = ExtResource("2_4wyf3")
+boolet_spawner = NodePath("../BooletSpawner")
 
-[node name="Players" type="Node2D" parent="."]
+[node name="BooletSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://bemuhe71gpel0")
+spawn_path = NodePath("../Field")
+script = ExtResource("5_i7141")
+boolet_scene = ExtResource("5_qfnet")
+
+[node name="Field" type="Node2D" parent="."]
 y_sort_enabled = true

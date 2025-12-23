@@ -7,9 +7,16 @@ class_name InputComponent
 # @export var body: Node2D ## Node taking input
 
 var input_vector: Vector2 = Vector2.ZERO ## Normalized input vector for moving
+var shoot_vector: Vector2 = Vector2.ZERO ## Normalized input vector for shooting
+var shoot: bool = false ## Input for shooting
+
+@export_group("External Nodes")
+@export var body: CharacterBody2D
 
 func _process(_delta: float) -> void:
 	var h_dir: float = Input.get_axis("move_left", "move_right")
 	var v_dir: float = Input.get_axis("move_up", "move_down")
 
 	input_vector = Vector2(h_dir, v_dir).normalized()
+	shoot = Input.is_action_pressed("shoot")
+	shoot_vector = body.global_position.direction_to(body.get_global_mouse_position())

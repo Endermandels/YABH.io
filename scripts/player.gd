@@ -5,6 +5,7 @@ class_name Player
 @export var input_cmp: InputComponent
 @export var movement_cmp: MovementComponent
 @export var animation_cmp: AnimationComponent
+@export var gun_handler: GunHandler
 
 func _enter_tree() -> void:
 	# Make sure client has authority over controlling the player
@@ -17,12 +18,15 @@ func _ready() -> void:
 	var camera = Camera2D.new()
 	add_child(camera)
 
+func _process(_delta: float) -> void:
+	if not is_multiplayer_authority(): return
+
+	animation_cmp.handle_facing_direction(self)
+
 func _physics_process(_delta: float) -> void:
 	# Make sure only client has authority to move player
 	if not is_multiplayer_authority(): return
 
 	movement_cmp.handle_movement(self, input_cmp.input_vector)
-	animation_cmp.handle_facing_direction(self)
 
 	move_and_slide()
-
