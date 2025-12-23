@@ -8,3 +8,6 @@ var hp: int = max_hp
 
 func take_dmg(dmg: int) -> void:
     hp = clampi(hp - dmg, 0, max_hp)
+
+func is_dead() -> bool:
+    return hp <= 0

@@ -3,6 +3,7 @@ class_name GunHandler
 
 @export_group("External Nodes")
 @export var input_cmp: InputComponent
+@export var stats: Stats
 
 @export_group("Internal Nodes")
 @export var cooldown_timer: Timer
@@ -12,6 +13,7 @@ var shoot_vector: Vector2 = Vector2.ZERO
 
 func _process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return
+	if stats.is_dead(): return
 	
 	if input_cmp.shoot and cooldown_timer.is_stopped():
 		cooldown_timer.start()

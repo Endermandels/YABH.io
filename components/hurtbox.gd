@@ -11,8 +11,8 @@ func _ready() -> void:
 func _on_area_entered(hitbox: Area2D) -> void:
 	if not multiplayer.is_server(): return
 	if not hitbox.name == "Hitbox" or hitbox.shooter_id == player.name.to_int(): return
+	if stats.is_dead(): return
 
 	print("[" + player.name + "] hit by [" + str(hitbox.shooter_id) + "]")
-
 	stats.take_dmg(hitbox.dmg)
 	print("[" + player.name + "] has [" + str(stats.hp) + "] HP left")

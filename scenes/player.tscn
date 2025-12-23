@@ -22,12 +22,15 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath("GunHandler:shoot_vector")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath("Stats:hp")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fjrip"]
 radius = 4.0
 height = 14.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_cmp", "movement_cmp", "animation_cmp", "gun_handler")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_cmp", "movement_cmp", "animation_cmp", "gun_handler", "stats")]
 collision_layer = 0
 collision_mask = 0
 motion_mode = 1
@@ -36,6 +39,7 @@ input_cmp = NodePath("InputComponent")
 movement_cmp = NodePath("MovementComponent")
 animation_cmp = NodePath("AnimationComponent")
 gun_handler = NodePath("GunHandler")
+stats = NodePath("Stats")
 
 [node name="Stats" parent="." instance=ExtResource("2_smehm")]
 
@@ -52,8 +56,9 @@ body = NodePath("..")
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("5_qlg0r")]
 sprite = NodePath("../Sprite2D")
 
-[node name="GunHandler" parent="." node_paths=PackedStringArray("input_cmp", "cooldown_timer") instance=ExtResource("6_fjrip")]
+[node name="GunHandler" parent="." node_paths=PackedStringArray("input_cmp", "stats", "cooldown_timer") instance=ExtResource("6_fjrip")]
 input_cmp = NodePath("../InputComponent")
+stats = NodePath("../Stats")
 cooldown_timer = NodePath("CooldownTimer")
 
 [node name="CooldownTimer" type="Timer" parent="GunHandler"]
