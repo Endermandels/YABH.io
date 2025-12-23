@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bemuhe71gpel0"]
+[gd_scene load_steps=8 format=3 uid="uid://bemuhe71gpel0"]
 
 [ext_resource type="Script" uid="uid://cmrbhkyh82ymw" path="res://scripts/boolet.gd" id="1_g2sb5"]
 [ext_resource type="Texture2D" uid="uid://dc8my3ly6gxb7" path="res://assets/images/boolet.png" id="1_rrdbb"]
 [ext_resource type="PackedScene" uid="uid://npb6g5febtek" path="res://components/hitbox.tscn" id="2_li7va"]
 [ext_resource type="PackedScene" uid="uid://dxa78ih8w5531" path="res://components/movement_component.tscn" id="4_8siw8"]
+[ext_resource type="PackedScene" uid="uid://g7jul2mwyfm0" path="res://components/despawn_component.tscn" id="5_fqc8s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_li7va"]
 size = Vector2(2, 2)
@@ -18,6 +19,9 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("Hitbox:dmg")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("Sprite2D:modulate")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="Boolet" type="CharacterBody2D" node_paths=PackedStringArray("hitbox", "movement_cmp")]
 script = ExtResource("1_g2sb5")
@@ -27,7 +31,9 @@ movement_cmp = NodePath("MovementComponent")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_rrdbb")
 
-[node name="Hitbox" parent="." instance=ExtResource("2_li7va")]
+[node name="Hitbox" parent="." node_paths=PackedStringArray("boolet", "sprite") instance=ExtResource("2_li7va")]
+boolet = NodePath("..")
+sprite = NodePath("../Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_li7va")
@@ -38,3 +44,6 @@ replication_config = SubResource("SceneReplicationConfig_g2sb5")
 [node name="MovementComponent" parent="." instance=ExtResource("4_8siw8")]
 acceleration = 1.0
 max_speed = 400.0
+
+[node name="DespawnComponent" parent="." node_paths=PackedStringArray("to_despawn") instance=ExtResource("5_fqc8s")]
+to_despawn = NodePath("..")

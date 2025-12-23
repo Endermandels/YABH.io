@@ -8,6 +8,15 @@ class_name Hurtbox
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 
+func _process(_delta: float) -> void:
+	# if not is_multiplayer_authority(): return
+	if stats.is_dead():
+		monitorable = false
+		monitoring = false
+	else:
+		monitorable = true
+		monitoring = true
+
 func _on_area_entered(hitbox: Area2D) -> void:
 	if not is_multiplayer_authority(): return
 	if not hitbox.name == "Hitbox" or hitbox.shooter_id == player.name.to_int(): return

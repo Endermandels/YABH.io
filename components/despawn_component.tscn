@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://g7jul2mwyfm0"]
+
+[ext_resource type="Script" uid="uid://bdnl78r6nv0xs" path="res://components/despawn_component.gd" id="1_r5s1v"]
+
+[node name="DespawnComponent" type="Node" node_paths=PackedStringArray("timer")]
+script = ExtResource("1_r5s1v")
+timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
