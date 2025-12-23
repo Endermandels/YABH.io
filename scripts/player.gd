@@ -24,7 +24,7 @@ func _process(_delta: float) -> void:
 		hide()
 
 		if not is_multiplayer_authority(): return
-		
+
 		if input_cmp.reset:
 			stats.reset()
 		else:

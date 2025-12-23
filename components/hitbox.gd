@@ -13,10 +13,6 @@ var shooter_id: int = 0
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 
-# Called when the hurtbox is done checking the hitbox
-func done_checking() -> void:
-	queue_free()
-
 func _on_area_entered(hurtbox: Area2D) -> void:
 	if not is_multiplayer_authority(): return
 	if not hurtbox.name == "Hurtbox" or shooter_id == hurtbox.player.name.to_int(): return

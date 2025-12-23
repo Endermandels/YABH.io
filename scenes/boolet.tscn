@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bemuhe71gpel0"]
+[gd_scene load_steps=9 format=3 uid="uid://bemuhe71gpel0"]
 
 [ext_resource type="Script" uid="uid://cmrbhkyh82ymw" path="res://scripts/boolet.gd" id="1_g2sb5"]
 [ext_resource type="Texture2D" uid="uid://dc8my3ly6gxb7" path="res://assets/images/boolet.png" id="1_rrdbb"]
 [ext_resource type="PackedScene" uid="uid://npb6g5febtek" path="res://components/hitbox.tscn" id="2_li7va"]
 [ext_resource type="PackedScene" uid="uid://dxa78ih8w5531" path="res://components/movement_component.tscn" id="4_8siw8"]
 [ext_resource type="PackedScene" uid="uid://g7jul2mwyfm0" path="res://components/despawn_component.tscn" id="5_fqc8s"]
+[ext_resource type="AudioStream" uid="uid://cpw00o212xjsw" path="res://assets/sfx/laserShoot.wav" id="6_euwnc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_li7va"]
 size = Vector2(2, 2)
@@ -23,10 +24,11 @@ properties/3/path = NodePath("Sprite2D:modulate")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
-[node name="Boolet" type="CharacterBody2D" node_paths=PackedStringArray("hitbox", "movement_cmp")]
+[node name="Boolet" type="CharacterBody2D" node_paths=PackedStringArray("hitbox", "movement_cmp", "shoot_sfx")]
 script = ExtResource("1_g2sb5")
 hitbox = NodePath("Hitbox")
 movement_cmp = NodePath("MovementComponent")
+shoot_sfx = NodePath("ShootSFX")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_rrdbb")
@@ -47,3 +49,6 @@ max_speed = 400.0
 
 [node name="DespawnComponent" parent="." node_paths=PackedStringArray("to_despawn") instance=ExtResource("5_fqc8s")]
 to_despawn = NodePath("..")
+
+[node name="ShootSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_euwnc")
