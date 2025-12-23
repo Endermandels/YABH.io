@@ -22,9 +22,15 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if stats.is_dead(): 
 		hide()
-		return
+
+		if not is_multiplayer_authority(): return
+		
+		if input_cmp.reset:
+			stats.reset()
+		else:
+			return
 	show()
-	
+
 	if not is_multiplayer_authority(): return
 
 	animation_cmp.handle_facing_direction(self)
